@@ -32,4 +32,4 @@ def handle_planets():
             orbital_period = planet.orbital_period
         ))
 
-    return jsonify(planets)
+    return jsonify(result_list)
