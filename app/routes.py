@@ -30,20 +30,21 @@ bp = Blueprint("planets", __name__, url_prefix="/planets")
 
 @bp.route("/<id>", methods= ["GET"])
 def handle_planet(id):
-    id = validate_id(id)
+    planet = validate_planet(id)
+
+    return planet.generate_dict()
+
+def validate_planet(id):
+    try:
+        id = int(id)
+    except:
+        abort(make_response({"message": f"{id} was invalid"}, 400))
 
     for planet in planets:
         if planet.id == id:
-            return planet.generate_dict()
+            return planet
 
     abort(make_response({"message": f"Planet with {id} was not found"}, 404))
-
-def validate_id(id):
-    try:
-        id = int(id)
-        return id
-    except:
-        abort(make_response({"message": f"{id} was invalid"}, 400))
 
 @bp.route("", methods=["GET"])
 def handle_planets():
