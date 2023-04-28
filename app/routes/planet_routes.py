@@ -18,5 +18,12 @@ def create_planet():
     request_body= request.get_json() 
 
     new_planet= Planet(
-        name= request_body[""]
+        name= request_body["name"]
+        description= request_body["description"]
+        orbital_period= request_body["orbital_period"]
     )
+
+    db.session.add(new_planet)
+    db.session.commit()
+
+    return make_response(f"Book {new_planet} successfully created", 201)
