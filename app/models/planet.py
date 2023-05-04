@@ -13,3 +13,9 @@ class Planet(db.Model):
             description=self.description,
             orbital_period=self.orbital_period
         )
+    
+    @classmethod
+    def from_dict(cls, data_dict):
+        return cls(name=data_dict["name"],
+                   description=data_dict["description"],
+                   orbital_period=data_dict["orbital_period"])
