@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 db = SQLAlchemy()
 migrate = Migrate()
+load_dotenv()
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -21,7 +22,7 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from app.models.planet import Planet
+    # from app.models.planet import Planet
     
     from .routes import bp
     app.register_blueprint(bp)
