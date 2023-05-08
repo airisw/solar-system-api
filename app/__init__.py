@@ -22,9 +22,13 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # from app.models.planet import Planet
+    from app.models.planet import Planet
+    from app.models.galaxy import Galaxy
     
     from .routes import bp
+    app.register_blueprint(bp)
+
+    from .galaxy_routes import bp
     app.register_blueprint(bp)
 
     return app

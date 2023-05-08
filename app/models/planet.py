@@ -5,6 +5,8 @@ class Planet(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     orbital_period = db.Column(db.Integer)
+    galaxy_id = db.Column(db.Integer, db.ForeignKey('galaxy.id'))
+    galaxy = db.relationship("Galaxy", back_populates="planets")
 
     def make_planet_dict(self):
         return dict(
@@ -15,7 +17,9 @@ class Planet(db.Model):
         )
     
     @classmethod
-    def from_dict(cls, data_dict):
+    def from_dict(cls, data_dict, galaxy):
         return cls(name=data_dict["name"],
                    description=data_dict["description"],
-                   orbital_period=data_dict["orbital_period"])
+                   orbital_period=data_dict["orbital_period"],
+                   galaxy_id=data_dict["galaxy_id"],
+                   galaxy=galaxy)
